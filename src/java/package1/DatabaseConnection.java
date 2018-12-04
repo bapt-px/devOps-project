@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.servlet.http.HttpSession;
+import jdk.nashorn.internal.ir.Symbol;
 import org.apache.taglibs.standard.tag.el.core.OutTag;
 
 /*
@@ -26,6 +27,7 @@ public class DatabaseConnection {
         /* Chargement du driver JDBC pour MySQL */
         try {
             Class.forName("com.mysql.jdbc.Driver");
+                        System.out.println("driver OK !");
         } catch ( ClassNotFoundException e ) {
             System.out.println(e.getMessage());
         }
@@ -35,7 +37,7 @@ public class DatabaseConnection {
         String motDePasse = "123";
         try {
             connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
-
+            System.out.println("Connexion OK !");
             /* Ici, nous placerons nos requêtes vers la BDD */
             /* ... */
 

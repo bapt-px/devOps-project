@@ -20,7 +20,7 @@ and open the template in the editor.
             <div class="container">
             <%
                         DatabaseConnection.connect();
-        String type = request.getParameter("type");  
+                String type = request.getParameter("type");  
 
                 String emailS = (String) session.getAttribute("email");
                 System.out.println(emailS);
