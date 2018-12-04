@@ -32,7 +32,7 @@ public class DatabaseConnection {
         /* Connexion à la base de données */
         String url = "jdbc:mysql://localhost:3306/cruddb";
         String utilisateur = "root";
-        String motDePasse = "";
+        String motDePasse = "123";
         try {
             connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
 
