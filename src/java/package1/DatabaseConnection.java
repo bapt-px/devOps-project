@@ -33,7 +33,7 @@ public class DatabaseConnection {
             System.out.println(e.getMessage());
         }
         /* Connexion à la base de données */
-        String url = "jdbc:mysql://localhost:3306/cruddb";
+        String url = "jdbc:mysql://mysql:3306/cruddb";
         String utilisateur = "root";
         String motDePasse = "123";
         try {
