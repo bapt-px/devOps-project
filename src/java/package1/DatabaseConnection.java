@@ -24,6 +24,7 @@ public class DatabaseConnection {
     
     private static Connection connexion = null;
     public static void connect() {
+        System.out.println("log");
         /* Chargement du driver JDBC pour MySQL */
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -42,10 +43,12 @@ public class DatabaseConnection {
             /* ... */
 
         } catch ( SQLException e ) {
+            System.out.println("erreur connexion : " + e.getMessage());
             /* Gérer les éventuelles erreurs ici */
         } 
     }
     public static ResultSet request(String req) throws SQLException {
+        System.out.println("call : " + connexion);
         Statement statement = connexion.createStatement();
         ResultSet resultat = statement.executeQuery( req );
 
@@ -54,16 +57,22 @@ public class DatabaseConnection {
     public static void execRequest(String req) throws SQLException {
         Statement statement = connexion.createStatement();
         statement.executeUpdate( req );
+        statement.close();
         }
     
     public static int register(User u) throws SQLException {
         ResultSet user = request("Select * from user where email = '" + u.getEmail() + "'");
         if(user.next()) {
+            user.getStatement().close();
+            user.close();
             return 0;
         }
         else {
             execRequest("insert into user(first_name, last_name, password, email) values('" + u.getFirst_name() + 
                     "', '" + u.getLast_name() + "', '" + u.getPassword() + "', '" + u.getEmail() + "')");
+                        user.getStatement().close();
+                        user.close();
+
             return 1;
         }
     }
@@ -71,6 +80,7 @@ public class DatabaseConnection {
         String sql = "Select * from user where email = '" + email + "'";
         System.out.println(sql);
         ResultSet user = request(sql);
+        
         
         if(user.next()) {
             if(password.compareTo(user.getString("password")) == 0) {
@@ -80,11 +90,19 @@ public class DatabaseConnection {
                 int id = user.getInt("id");
                 System.out.println("id ! " + id);
                 session.setAttribute("id", id);
+                            user.getStatement().close();
+                            user.close();
                 return 0;
             }
-            else return 2;
+            else { 
+                            user.getStatement().close();
+                            user.close();
+                    return 2;
+                }
         }
         else {
+                        user.getStatement().close();
+                        user.close();
             return 1;
         }
     }
