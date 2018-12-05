@@ -27,13 +27,13 @@ public class DatabaseConnection {
         System.out.println("log");
         /* Chargement du driver JDBC pour MySQL */
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mariadb.jdbc.Driver");
                         System.out.println("driver OK !");
         } catch ( ClassNotFoundException e ) {
             System.out.println(e.getMessage());
         }
         /* Connexion à la base de données */
-        String url = "jdbc:mysql://db:3306/cruddb";
+        String url = "jdbc:mariadb://db:3306/cruddb";
         String utilisateur = "root";
         String motDePasse = "123";
         try {
