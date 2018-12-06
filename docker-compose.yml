@@ -1,0 +1,27 @@
+version: "3.1"
+services:
+  db:
+    image: mysql:5
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+    volumes:
+      - ./database:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    ports :
+      - 9000:80
+    volumes:
+      - /sessions
+    links:
+      - db
+  appli:
+    image: b3
+    links :
+      - db
+    container_name: appli
+    ports:
+      - 8181:8181
+      - 8080:8080
+      - 4848:4848
